@@ -22,6 +22,7 @@ class Chapter(models.Model):
 
     chapter_number = models.IntegerField()
     chapter_title = models.CharField(max_length=100)
+    chapter_body = models.TextField(blank=True, null=True)
     chapter_status = models.CharField(max_length=120, choices = chapter_status_choices)
     number_of_views = models.IntegerField(default = 0)
 
