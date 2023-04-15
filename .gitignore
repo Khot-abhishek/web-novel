@@ -1,4 +1,6 @@
 *.pyc
 /venv
 z_rough_work.txt
+db.sqlite3
+library/migrations/
 
