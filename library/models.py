@@ -18,12 +18,11 @@ class Book(models.Model):
         return f" {self.author.username} : {self.book_title}"
 
 class Chapter(models.Model):
-    chapter_status_choices = {'draft': 'DRAFT', 
-                      'published': 'PUBLISHED'}
+    chapter_status_choices = [ ('draft', 'DRAFT'),  ('published', 'PUBLISHED')]
 
     chapter_number = models.IntegerField()
     chapter_title = models.CharField(max_length=100)
-    chapter_status = models.ChoicesField(choices = chapter_status_choices)
+    chapter_status = models.CharField(max_length=120, choices = chapter_status_choices)
     number_of_views = models.IntegerField(default = 0)
 
     book = models.ForeignKey(Book, related_name='chapters', on_delete=models.CASCADE)
