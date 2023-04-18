@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -18,7 +19,7 @@ class Tag(models.Model):
 class Book(models.Model):
     book_cover_image = models.ImageField(upload_to='book_cover_images', default='default_cover_image')
     book_title = models.CharField(max_length=100)
-    book_summary = models.TextField(blank=True, null=True)
+    book_summary = RichTextField()
     total_reads = models.IntegerField(default=0)
     created_on = models.DateField(blank=True, null=True)
     updated_on = models.DateTimeField(blank=True, null=True)
@@ -36,7 +37,7 @@ class Chapter(models.Model):
 
     chapter_number = models.IntegerField()
     chapter_title = models.CharField(max_length=100)
-    chapter_body = models.TextField(blank=True, null=True)
+    chapter_body = RichTextField()
     chapter_status = models.CharField(max_length=120, choices = chapter_status_choices)
     number_of_views = models.IntegerField(default = 0)
 
