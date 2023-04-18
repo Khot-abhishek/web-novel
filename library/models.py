@@ -3,6 +3,17 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class Category(models.Model):
+    name = models.CharField(max_length=100, default='no_category_selected')
+    
+    def __str__(self):
+        return f" {self.name}"
+
+class Tag(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f" {self.name}"
 
 class Book(models.Model):
     book_cover_image = models.ImageField(upload_to='book_cover_images', default='default_cover_image')
@@ -13,7 +24,10 @@ class Book(models.Model):
     updated_on = models.DateTimeField(blank=True, null=True)
 
     author = models.ForeignKey(User, related_name='books', on_delete=models.DO_NOTHING)
-    
+    category = models.ForeignKey(Category, related_name='category', on_delete=models.DO_NOTHING)
+    tags = models.ManyToManyField(Tag, related_name='tags')
+
+
     def __str__(self):
         return f" {self.author.username} : {self.book_title}"
 
@@ -28,10 +42,10 @@ class Chapter(models.Model):
 
     book = models.ForeignKey(Book, related_name='chapters', on_delete=models.CASCADE)
 
-
     def __str__(self):
         return f" {self.book.book_title} : {self.chapter_number} - {self.chapter_title}"
-    
+
+
 class Comment(models.Model):
     comment_author = models.ForeignKey(User, related_name='comments', on_delete=models.DO_NOTHING)
     comment_text = models.TextField()

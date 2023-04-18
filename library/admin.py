@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book, Chapter, Comment
+from .models import Book, Chapter, Comment, Category, Tag
 
 # Register your models here.
 
@@ -33,3 +33,13 @@ class CommentAdmin(admin.ModelAdmin):
     class Meta:
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
