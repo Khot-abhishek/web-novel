@@ -28,9 +28,16 @@ class Book(models.Model):
     category = models.ForeignKey(Category, related_name='category', on_delete=models.DO_NOTHING)
     tags = models.ManyToManyField(Tag, related_name='tags')
 
-
     def __str__(self):
         return f" {self.author.username} : {self.book_title}"
+
+    def get_tags(self):
+        all_tags = self.tags.all()
+        return all_tags
+
+
+
+
 
 class Chapter(models.Model):
     chapter_status_choices = [ ('draft', 'DRAFT'),  ('published', 'PUBLISHED')]
