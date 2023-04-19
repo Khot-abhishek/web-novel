@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from PIL import Image
 
 # Create your models here.
 
@@ -35,6 +36,13 @@ class Book(models.Model):
         all_tags = self.tags.all()
         return all_tags
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        img = Image.open(self.book_cover_image.path)
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.book_cover_image.path)
 
 
 
